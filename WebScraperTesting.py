@@ -5,8 +5,14 @@ import requests
 #Library to turn data into a spreadsheet for easier viewing
 import csv
 
+#Setting userAgent to avoid 403 Forbidden error
+userAgent = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/106.0.0.0"}
+
 #Website we want to scrape
-website = requests.get("https://quotes.toscrape.com")
+website = requests.get("https://quotes.toscrape.com", headers=userAgent)
+print(website.status_code)
+print(website.request.headers)
+
 #Converting website to text using python's standard library HTML parser
 soup = BeautifulSoup(website.text, "html.parser")
 #Grabs a list of quotes and their respective authors
