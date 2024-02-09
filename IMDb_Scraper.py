@@ -13,4 +13,11 @@ print(website.request.headers)
 
 #Converting website to text using python's standard library HTML parser
 soup = BeautifulSoup(website.text, "html.parser")
-print(soup.prettify())
+#Important information getting scraped
+title = soup.findAll("h3", attrs={"ipc-title__text"})
+#rating = "x"
+#description = "x"
+
+#Printing out scraped data
+for t in title:
+    print(t.text)
