@@ -4,15 +4,33 @@ from bs4 import BeautifulSoup
 import requests
 #Library to turn data into a spreadsheet for easier viewing
 import csv
+#Library for command line arguments
+import argparse
 
 #Setting userAgent to avoid 403 Forbidden error
 userAgent = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/106.0.0.0"}
 
+#Sets base url to no genre
+base_url = "https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries"
+
+#Creates argparse object
+parser = argparse.ArgumentParser()
+#Adding argument
+parser.add_argument('--genre', type=str)
+args = parser.parse_args()
+
+#If the user didn't input a genre none is set
+if (args == None):
+    url = base_url
+#If the user inputted a genre the genre(s) are set
+else:
+    url = base_url + "&genres=" + args
+
 #Website we want to scrape
-url = requests.get("https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries", headers=userAgent)
+site = requests.get(url, headers=userAgent)
 
 #Converting website to text using python's standard library HTML parser
-soup = BeautifulSoup(url.text, "html.parser")
+soup = BeautifulSoup(site.text, "html.parser")
 #Important information getting scraped
 title = soup.findAll("h3", attrs={"class":"ipc-title__text"})
 rating = soup.findAll("span", attrs={"class":"ipc-rating-star ipc-rating-star--base ipc-rating-star--imdb ratingGroup--imdb-rating"})
