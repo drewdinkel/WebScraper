@@ -16,20 +16,17 @@ base_url = "https://www.imdb.com/search/title/?title_type=tv_series,tv_miniserie
 #Creates argparse object
 parser = argparse.ArgumentParser()
 #Adding argument
-parser.add_argument('-g', '--genre')
+parser.add_argument('-g', '--genre', type=str, default=False)
 args = parser.parse_args()
+#args.genre converts args (a Namespace object) to a string
+genre = args.genre
 
-print(args)
 #If the user didn't input a genre none is set
-if (args == False): #Currently doesn't work
-    print("1")
+if (genre == False):
     url = base_url
 #If the user inputted a genre the genre(s) are set
 else:
-    print("2")
-    url = base_url + "&genres=" + str(args)
-
-print(url)
+    url = base_url + "&genres=" + genre
 
 #Website we want to scrape
 site = requests.get(url, headers=userAgent)
