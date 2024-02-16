@@ -13,10 +13,10 @@ There is only one optional argument for this program. It can be called using eit
 If multiple genres are inputed they must be seperated by a single comma with no space inbetween.
 
 Examples:
-- python3 IMDb_Scraper
-- python3 IMDb_Scraper -g action
-- python3 IMDb_Scraper --genre comedy,sci-fi
+- python3 IMDb_Scraper.py
+- python3 IMDb_Scraper.py -g action
+- python3 IMDb_Scraper.py --genre comedy,sci-fi
 
 ## Limitations
-- Currently only works with TV Series, not movies. (Could later be implemented by adding an additional command line argument)
+- Currently only works with TV Series, not movies (Could later be implemented by adding an additional command line argument).
 - If too many genres are inputted there will be no results returned as shows will not match every inputted genre.
