@@ -10,16 +10,26 @@ import argparse
 #Setting userAgent to avoid 403 Forbidden error
 userAgent = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/106.0.0.0"}
 
-#Sets base url to no genre
-base_url = "https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries"
-
 #Creates argparse object
 parser = argparse.ArgumentParser()
-#Adding argument
+#Adding arguments for type of media and genre
+parser.add_argument('-t', '--type', type=str, default=False)
 parser.add_argument('-g', '--genre', type=str, default=False)
 args = parser.parse_args()
-#args.genre converts args (a Namespace object) to a string
+#args.type converts type arg (a Namespace object) to a string
+type = args.type
+#args.genre converts genre arg (a Namespace object) to a string
 genre = args.genre
+
+#Setting base_url to either TV or Movie if the user specified
+base_url = ""
+if (type == "tv"):
+    base_url = "https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries"
+elif (type == "movie"):
+    base_url = "https://www.imdb.com/search/title/?title_type=feature"
+#Looks at both TV Series and Movies as one or the other wasn't specified
+else:
+    base_url = "https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries,feature"
 
 #If the user didn't input a genre none is set
 if (genre == False):
